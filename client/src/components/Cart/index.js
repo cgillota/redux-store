@@ -7,11 +7,14 @@ import CartItem from '../CartItem';
 import Auth from '../../utils/auth';
 import { useStoreContext } from '../../utils/GlobalState';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
-import './style.css';
+import './style.css'; 
+import {useSelector } from "react-redux";
 
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 const Cart = () => {
+  const user = useSelector((state) => state.user.value);
+
   const [state, dispatch] = useStoreContext();
   const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
@@ -76,9 +79,9 @@ const Cart = () => {
         [close]
       </div>
       <h2>Shopping Cart</h2>
-      {state.cart.length ? (
+      {user.cart.length ? (
         <div>
-          {state.cart.map((item) => (
+          {user.cart.map((item) => (
             <CartItem key={item._id} item={item} />
           ))}
 
@@ -103,5 +106,6 @@ const Cart = () => {
     </div>
   );
 };
+
 
 export default Cart;

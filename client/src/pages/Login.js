@@ -3,8 +3,11 @@ import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
+import { useDispatch } from 'react-redux'; 
+import {login} from "../features/user";
 
-function Login(props) {
+function Login(props) { 
+  const dispatch = useDispatch();
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
 
@@ -31,7 +34,9 @@ function Login(props) {
 
   return (
     <div className="container my-1">
-      <Link to="/signup">← Go to Signup</Link>
+      <Link to="/signup">← Go to Signup</Link> 
+
+      <button onClick={() => {dispatch(Login )}}> Login</button>
 
       <h2>Login</h2>
       <form onSubmit={handleFormSubmit}>
